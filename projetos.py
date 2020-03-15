@@ -13,7 +13,9 @@ class Projeto:
     def __str__( self ):
         s =  f'Projeto ({self.id})\n'
         s += f'\tNome: {self.nome}\n'
-        s += f'\tDetalhes: {self.detalhes}'
+        s += f'\tDetalhes: {self.detalhes}\n'
+        s += f"\tCusto: {self.custo}\n"
+        s += f"\tRiscos: {self.riscos}\n" 
 
         return s
     def update_id( self , _id ):
@@ -26,15 +28,15 @@ REGEX_COD_DE_REQUISTOS_VALIDA = '([([0-9]{1,}[ ]{0,1})*'
 REGEX_NUMEROS = '[0-9]{1,}'
 
 class PlanejarProjeto:
-    def __init__( self , lista_todos_requisitos ):
-        self.lista_todos_requisitos = lista_todos_requisitos
+    def __init__( self , dict_todos_requisitos ):
+        self.dict_todos_requisitos = dict_todos_requisitos
         self.lista_projetos = list()
     
     def __iter__( self ):
         return self
 
     def __next__( self ):
-        i = input('>>>Gerar requisito(S/N)? ').lower()
+        i = input('>>>Gerar projeto(s/n)? ').lower()
 
         while i.startswith('s'):
             return self.novo()
@@ -53,7 +55,7 @@ class PlanejarProjeto:
             #Retirando os conjuntos de requisitos do projeto
             lista_requisitos_do_projeto = list()
             for i in cod_de_requisitos_do_projeto:
-                lista_requisitos_do_projeto.append( self.lista_todos_requisitos[ int( i ) ] )
+                lista_requisitos_do_projeto.append( self.get_requisito( i ) )
             
             #Input dos dados
             nome = input('>>>Qual o nome do projeto? ')
@@ -68,11 +70,14 @@ class PlanejarProjeto:
             return projeto
         else:
             print('<<<Lista de requisitos invalida ')
+    
+    def get_requisito( self , i ):
+        for tipo_requisito in self.dict_todos_requisitos:
+            for requisito in self.dict_todos_requisitos[ tipo_requisito ]:
+                return self.dict_todos_requisitos[ tipo_requisito ][ requisito ]
 
     def update_projeto( self , projeto ):
         self.lista_projetos.append( projeto )
-    def update_requisitos( self , requisito ):
-        self.lista_todos_requisitos.append( requisito )
         
 
 def gerar_projeto( lista_todos_requisitos ):
@@ -93,9 +98,8 @@ def gerar_projeto( lista_todos_requisitos ):
         else:
             print('<<<Informar ao cliente que esse projeto não é viavel de ser feito')
             
-        
-            
-        #Precisa 
+    return obj_planejar            
+
 
 if __name__ == '__main__':
     gerar_projeto(['AAAA', 'BBBB'])
