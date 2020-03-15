@@ -9,6 +9,7 @@ class Projeto:
         self.riscos = riscos
         self.id = None
         self.validado = False
+        self.lista_contrucao = list()
 
     def __str__( self ):
         s =  f'Projeto ({self.id})\n'
@@ -22,6 +23,9 @@ class Projeto:
         self.id = id
     def update_validado( self , validado ):
         self.validado
+    
+    def update_lista_contrucao( self , contrucao ):
+        self.lista_contrucao.append( contrucao )
     
 
 REGEX_COD_DE_REQUISTOS_VALIDA = '([([0-9]{1,}[ ]{0,1})*'
@@ -81,8 +85,6 @@ class PlanejarProjeto:
         
 
 def gerar_projeto( lista_todos_requisitos ):
-    
-
     obj_planejar = PlanejarProjeto( lista_todos_requisitos )
 
     for projeto in obj_planejar:
