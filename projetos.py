@@ -1,4 +1,5 @@
 import re
+from contrucao  import Contrucao
 class Projeto:
     
     def __init__( self , lista_requisitos: list , nome:str , detalhes:str , custo:str , riscos:str ):
@@ -9,6 +10,8 @@ class Projeto:
         self.riscos = riscos
         self.id = None
         self.validado = False
+        self.executado = False
+        self.contrucao = None
         self.lista_contrucao = list()
 
     def __str__( self ):
@@ -27,6 +30,15 @@ class Projeto:
     def update_lista_contrucao( self , contrucao ):
         self.lista_contrucao.append( contrucao )
     
+    def executar( self ):
+        if self.executado == False:
+            #Gerar a contrucao
+            print("\nFazer a contrução do código")
+            self.contrucao = Contrucao()
+
+            
+
+        self.executado = True
 
 REGEX_COD_DE_REQUISTOS_VALIDA = '([([0-9]{1,}[ ]{0,1})*'
 REGEX_NUMEROS = '[0-9]{1,}'

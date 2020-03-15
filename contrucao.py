@@ -1,3 +1,7 @@
+from teste import criaModeloTeste
+from teste import testeCompleto
+from teste import testeUnitario
+
 class Contrucao:
 
     def __str__( self ):
@@ -47,6 +51,12 @@ class Contrucao:
                 self.lista_diagrama_Uml.append( diagrama_ml )
             elif entrada.startswith('5'):
                 flag = False
+    def testar( self ):
+        #TODO precisa ver como foi feito esses testes
+        criaModeloTeste( )
+
+        
+
 
 class Classe:
     def __init__( self ):
