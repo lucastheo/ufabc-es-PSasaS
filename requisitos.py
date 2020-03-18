@@ -39,9 +39,9 @@ def gerar_requisitor():
         else:
             print("\nTipo Inválido!!\n")
         idReq = idReq +1
-        resposta = input("Já adicionou todos os requisitos?(s/n)\n>>>")
+        resposta = input("Já adicionou todos os requisitos?(s/n)\n>>>").lower()
     print(requisitos)
-    resposta=input("\nRequisitos Válidos?(s/n):\n>>>")
+    resposta=input("\nRequisitos Válidos?(s/n):\n>>>").lower()
     while(resposta!="s"):
         print(requisitos)
         tipo = input("\nQual requisito deseja Alterar?\n\nDigite o código do tipo do requisito\nFuncional = 1\nNão Funcional = 2\nDomínio = 3\nDados = 4\n>>>")
@@ -73,5 +73,5 @@ def gerar_requisitor():
             idReq = idReq +1
             print("\nRequisitos após alteração\n")
         print(requisitos)
-        resposta=input("Requisitos Válidos?(s/n):\n>>>")
+        resposta=input("Requisitos Válidos?(s/n):\n>>>").lower()
     return requisitos

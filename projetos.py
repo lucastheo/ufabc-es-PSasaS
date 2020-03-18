@@ -1,4 +1,5 @@
 import re
+import time
 from contrucao  import Contrucao
 from teste import testeCompleto
 from implementacao import deploy
@@ -35,7 +36,8 @@ class Projeto:
             #Gerar a contrucao
             print("\nFazendo a contrução do código")
             self.objContrucao = Contrucao()
-            print("\nFazendo os teste unitario ")
+            print("\nFazendo os testes unitario ")
+            time.sleep(5)
             if testeCompleto( self.objContrucao , self.objContrucao.lista_diagrama_Uml , self.lista_requisitos ) == False:
                 print("\nNão passou nos testes")
                 self.executado = False
@@ -68,7 +70,7 @@ class PlanejarProjeto:
         cod_de_requisitos_do_projeto_str = input('>>>Quais requisitos vão gerar essa projeto? ')
     
         #Valida se os dados inputados são validos
-        if re.fullmatch( REGEX_COD_DE_REQUISTOS_VALIDA , cod_de_requisitos_do_projeto_str ):
+        if re.fullmatch( REGEX_COD_DE_REQUISTOS_VALIDA , cod_de_requisitos_do_projeto_str ) != None:
             
             #Corta as listas buscando os id's
             cod_de_requisitos_do_projeto = re.findall(REGEX_NUMEROS , cod_de_requisitos_do_projeto_str)
@@ -87,10 +89,12 @@ class PlanejarProjeto:
 
             #Gera o projeto
             projeto = Projeto( lista_requisitos_do_projeto , nome , detalhes , custos , riscos )
-            
+
+            self.lista_projetos.append( projeto )   
             return projeto
         else:
             print('<<<Lista de requisitos invalida ')
+            return self.novo( )
     
     def get_requisito( self , i ):
         for tipo_requisito in self.dict_todos_requisitos:
@@ -99,7 +103,10 @@ class PlanejarProjeto:
 
     def update_projeto( self , projeto ):
         self.lista_projetos.append( projeto )
-        
+    
+    def executar_todos_projetos( self ):
+        for projeto in self.lista_projetos:
+            projeto.executar() 
 
 def gerar_projeto( lista_todos_requisitos ):
     obj_planejar = PlanejarProjeto( lista_todos_requisitos )
@@ -112,10 +119,17 @@ def gerar_projeto( lista_todos_requisitos ):
                 projeto.update_validado(True)
                 print('<<<Projeto pronto para ser executado')
                 obj_planejar.update_projeto( projeto )
+                if input(">>>Realizar projeto? (S/N)").lower().startswith("s"):
+                    projeto.executar()
             else:
                 print('<<<Projeto não deve ser executado')
         else:
             print('<<<Informar ao cliente que esse projeto não é viavel de ser feito')
+        
+        if input(">>>Vc deseja fazer mais algum projeto? ").lower().startswith("n"):
+            print(">>>Executando os outros projetos em backlog")
+            obj_planejar.executar_todos_projetos()
+            break
             
     return obj_planejar            
 
