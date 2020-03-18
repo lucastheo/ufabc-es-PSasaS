@@ -1,5 +1,8 @@
 import re
 from contrucao  import Contrucao
+from teste import testeCompleto
+from implementacao import deploy
+
 class Projeto:
     
     def __init__( self , lista_requisitos: list , nome:str , detalhes:str , custo:str , riscos:str ):
@@ -11,8 +14,8 @@ class Projeto:
         self.id = None
         self.validado = False
         self.executado = False
-        self.contrucao = None
-        self.lista_contrucao = list()
+        self.objContrucao = None
+        self.teste = False
 
     def __str__( self ):
         s =  f'Projeto ({self.id})\n'
@@ -27,15 +30,17 @@ class Projeto:
     def update_validado( self , validado ):
         self.validado
     
-    def update_lista_contrucao( self , contrucao ):
-        self.lista_contrucao.append( contrucao )
-    
     def executar( self ):
         if self.executado == False:
             #Gerar a contrucao
-            print("\nFazer a contrução do código")
-            self.contrucao = Contrucao()
-
+            print("\nFazendo a contrução do código")
+            self.objContrucao = Contrucao()
+            print("\nFazendo os teste unitario ")
+            if testeCompleto( self.objContrucao , self.objContrucao.lista_diagrama_Uml , self.lista_requisitos ) == False:
+                print("\nNão passou nos testes")
+                self.executado = False
+                return
+            deploy()
             
 
         self.executado = True
